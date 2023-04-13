@@ -1,9 +1,9 @@
 // 防抖-多次变最后一次；节流-多次变每隔一段时间执行
 // 防抖debounce
 // 防止多次重复提交，只执行最后一次，如搜索联想词功能，表单验证提交
-function debounce (fn, delay) {
+function debounce(fn, delay) {
     let timer = null
-    return function (...args) {
+    return function(...args) {
         if (timer) {
             clearTimeout(timer)
         }
