@@ -1,0 +1,131 @@
+const p1 = new Promise((resolve,reject)=>{
+    setTimeout(()=>{
+      resolve("66666")
+    },300)
+  })
+  const p2 = new Promise((resolve,reject)=>{
+    setTimeout(()=>{
+      resolve("77777")
+    },200)
+  })
+  const p3 = new Promise((resolve,reject)=>{
+    setTimeout(()=>{
+      reject("88888")// 相当于 return new Promise.reject("88888")
+    },200)
+  })
+
+
+// 一、基本静态方法实现：resolve,reject,finally
+Promise.myResolve = function(param) {
+    // 1.Promise直接返回
+    if (param instanceof Promise) {
+        return param
+    }
+    // 2.thenable对象会进行跟随
+    return new Promise((resolve, reject) => {
+        if (param && param.then && typeof param.then === 'function') {
+            // 决定权交给param
+            param.then(resolve, reject)
+        } else {
+            // 3.其他类型对象会包装为promise对象并返回
+            resolve(param)
+        }
+    })
+}
+// reject方法实现：参数reason会不断传递
+Promise.reject = function(reason) {
+    return new Promise((resolve, reject) => {
+        reject(reason)
+    })
+}
+
+// finally原封不动传值，执行传入的函数
+Promise.prototype.finally = function(callback) {
+    this.then(value => {
+        return Promise.resolve(callback()).then(() => {
+            return value
+        })
+    }, err => {
+        return Promise.resolve(callback()).then(() => {
+            return err
+        })
+    })
+}
+
+
+// 二、all:接收一个Promise数组，返回一个新Promise实例；都成功才成功，一个不成功则会catch
+Promise.myAll = function(promises) {
+    let result = []
+    let index = 0
+    // 传入为空，返回promise包裹的空数组
+    if (promises.length === 0) {
+        resolve(result)
+        return
+    }
+    // 遍历接收的promises数组
+    for (let i = 0; i < promises.length; i++) {
+        // 使用then收集成功返回，catch收集错误
+        Promise.resolve(promises[i]).then(res => {
+            // 收集成功后返回的结果
+            result[i] = res
+            index++
+            // 全部执行完毕，返回有序数组
+            if (index === len) {
+                resolve(result)
+            }
+        }).catch(err => {
+            // 任一错误，直接reject
+            reject(err)
+        })
+    }
+}
+
+// 三、race方法：只返回最快被调用的一个
+// resolve和reject的状态不可变性，调用一次不会再次调用
+Promise.myRace = function(promises) {
+    return new Promise((resolve, reject) => {
+        for (const item of promises) {
+            Promise.resolve(item).then(resolve, reject)
+        }
+    })
+}
+
+// 四、any:只要有一个成功就成功，全部失败才失败
+Promise.myAny = function(promises) {
+    let res = []
+    let index = 0
+    return new Promise((resolve, reject) => {
+        for (let i = 0; i < promises.length; i++) {
+            Promise.resolve(promises[i]).then(resolve, err => {
+                res[i] = { status: "reject", value: err}
+                index++
+                if (index === promises.length) {
+                    reject(new Error('没有promise成功'))
+                }
+            })
+        }
+    })
+}
+
+// 五、allSettled:无论成功与否，都要等待执行完成才能进行下一步操作
+Promise.allSettled = function(promises) {
+    let res = []
+    let index = 0
+    return new Promise((resolve, reject) => {
+        for (let i = 0; i < promises.length; i++) {
+            Promise.resolve(promises[i]).then(res => {
+                res[i] = { status: 'fulfilled', value: res }
+                index++
+                if (index === promises.length) {
+                    resolve(res)
+                }
+            }).catch(err => {
+                res[i] = { status: 'rejected', value: error}
+                index++
+                if (index === promises.length) {
+                    reject(err)
+                }
+            })
+        }
+    })
+}
