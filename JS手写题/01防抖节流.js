@@ -25,6 +25,7 @@ const useDebounceHook = (value, delay) => {
         let timer = setTimeout(() => setDebounceValue(value), delay)
         return () => clearTimeout(timer)
     }, [value, delay])
+    return debounceValue
 }
 
 // 测试用例：对搜索框使用防抖hook
