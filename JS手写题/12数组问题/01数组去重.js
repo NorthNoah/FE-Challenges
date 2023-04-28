@@ -37,10 +37,3 @@ console.log(unique(arr))
 console.log(unique2(arr))
 console.log(unique3(arr))
 console.log(unique4(arr))
-
-
-
-
-
-
-
