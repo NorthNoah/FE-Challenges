@@ -2,7 +2,6 @@ function ajax(url, method) {
     // 1.返回promise对象
     return new Promise((resolve, reject) => {
         // 2.新建xhr对象,打开链接
-        const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest
         const xhr = new XMLHttpRequest()
         xhr.open(url, method, true)
         // 3.编写监听状态变化的逻辑
