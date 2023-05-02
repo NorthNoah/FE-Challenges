@@ -1,3 +1,4 @@
+// 判断null——判断引用数据类型——判断基本数据类型、函数
 function getType(value) {
     // 判断null
     if (value === null) {
