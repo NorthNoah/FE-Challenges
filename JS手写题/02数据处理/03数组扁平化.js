@@ -14,7 +14,11 @@ const flat2 = (arr) => {
 const flat3 = arr => {
     // pre：累积和，cur：当前元素
     return arr.reduce((total, cur) => {
-        return total.concat(Array.isArray(cur) ? flat3(cur) : cur)
+        if (Array.isArray(cur)) {
+            return total.concat(flat3(cur))
+        } else {
+            return total.concat(cur)
+        }
     }, [])
 }
 
