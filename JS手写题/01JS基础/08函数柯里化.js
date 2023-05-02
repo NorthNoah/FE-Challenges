@@ -2,16 +2,17 @@
 // ES6写法
 function curry(fn) {
     return function temp(...args) {
+        // 执行
         if (fn.length === args.length) {
             return fn(...args)
         } else {
+            // 返回中间函数，函数中调用temp函数，进行参数拼合
             return function(...arg) {
                 return temp(...arg, ...args)
             }
         }
     }
 }
-
 function add(a, b, c) {
     return a + b + c
 }
