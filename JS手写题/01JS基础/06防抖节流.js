@@ -19,7 +19,6 @@ function debounce(fn, delay) {
 const useDebounceHook = (value, delay) => {
     // 将原先value转化为组件内部状态
     const [debounceValue, setDebounceValue] = useState(value)
-
     // 在useEffect中用setTimeout调用
     useEffect(() => {
         let timer = setTimeout(() => setDebounceValue(value), delay)
@@ -30,7 +29,7 @@ const useDebounceHook = (value, delay) => {
 
 // 测试用例：对搜索框使用防抖hook
 const [text, setText] = useState('')
-const debounceValue = useDebounceHook(text, 2000)
+const debounceText = useDebounceHook(text, 2000)
 useEffect(() => {
     console.log("change:", debounceText)
 }, [debounceText])
@@ -47,7 +46,7 @@ function throttle (fn, delay) {
     let curTime = Date.now()
     return function (...args) {
         let nowTime = Date.now()
-        if (nowTime - curTime > delay) {
+        if (nowTime - curTime >= delay) {
             fn.apply(this, args)
             curTime = Date.now()
         }
