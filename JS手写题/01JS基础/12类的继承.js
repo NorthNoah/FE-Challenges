@@ -52,7 +52,3 @@ function Student(name, age, score) {
 Student.prototype = Object.create(Person.prototype)
 // 将子类构造函数的原型的构造器指向它本身
 Student.prototype.constructor = Student
-
-
-
-
