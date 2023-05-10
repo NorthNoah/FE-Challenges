@@ -22,3 +22,21 @@ let a = curryAdd(1, 2, 3)
 let b = curryAdd(1)(2, 3)
 let c = curryAdd(1)(2)(3)
 console.log(a, b, c)
+
+function currying(fn) {
+    return function temp(...args) {
+        if (fn.length === args.length) {
+            return fn(...args)
+        } else {
+            return function(...newArgs) {
+                return temp(...args, ...newArgs)
+            }
+        }
+
+    }
+}
+let curryAdd2 = currying(add)
+let d = curryAdd2(1, 2, 3)
+let e = curryAdd2(1)(2, 3)
+let f = curryAdd2(1)(2)(3)
+console.log(d, e, f)
