@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 不使用相对定位，使用margin空开两边 */
+        .father {
+            height: 100px;
+            min-width: 600px;
+        }
+        .left, .right, .center {
+            float: left;
+            height: 100%;
+        }
+
+        .left {
+            width: 300px;
+            background: tomato;
+
+            /* margin-left父元素宽的负值，移到上一栏的最左边 */
+            margin-left: -100%;
+        }
+
+        .right {
+            width: 300px;
+            background: gold;
+
+            /* margin-left自己的宽的负值，移到上一栏的最右边 */
+            margin-left: -300px;
+        }
+
+        .center {
+            background:  lightgreen;
+            width: 100%;
+        }
+        .center .inner {
+            /* 使用margin方式让出两边 */
+            margin: 0 300px; 
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="father">
+        <div class="center">
+            <div class="inner">中间</div>
+        </div>
+        <div class="left">左</div>
+        <div class="right">右</div>
+    <div>
+</body>
+</html>
