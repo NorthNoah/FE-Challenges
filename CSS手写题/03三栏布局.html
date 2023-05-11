@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* flex写法 */
+        /* .father {
+            display: flex;
+        }
+        .center {
+            flex: 1;
+            background-color: yellow;
+        }
+        .left, .right {
+            height: 100px;
+            width:300px;
+            background: blue;
+        } */
+        /* grid写法 */
+        /* .father {
+            display: grid;
+            grid-template-columns: 300px auto 300px;
+        }
+        .center {
+            background-color: yellow;
+        }
+        .left, .right {
+            background: blue;
+        } */
+
+        /* float写法：注意center要放在最后 */
+        /* .center {
+            background-color: yellow;
+            height: 100px;
+            overflow: hidden;
+        }
+        .left {
+            width: 300px;
+            height: 100px;
+            float: left;
+            background: blue;
+        }
+        
+        .right {
+            width: 300px;
+            height: 100px;
+            float: right;
+            background: blue;
+        } */
+
+        /* 绝对定位 */
+        .father {
+            position: relative;
+            height: 100px;
+        }
+
+        .left {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: tomato;
+        }
+
+        .right {
+            position: absolute;
+            /* 注意需要将right元素拉上去 */
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 100px;
+            background: gold;
+        }
+
+        .center {
+            margin-left: 100px;
+            margin-right: 200px;
+            height: 100px;
+            background: lightgreen;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="father">
+        <div class="left">左</div>
+        <div class="center">中间</div>
+        <div class="right">右</div>
+    <div>
+</body>
+</html>
