@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        
+        /* flex写法 */
+        /* .father {
+            display: flex;
+        }
+        .left {
+            width: 300px;
+            background-color: red;
+        }
+        .right {
+            flex: 1;
+            background-color: black;
+        } */
+
+        /* grid写法 */
+        /* .father {
+            display: grid;
+            grid-template-columns: 300px auto;
+        }
+
+        .left {
+            background-color: red;
+        }
+        .right {
+            background-color: black;
+        } */
+
+        /* float写法 */
+        /* .left {
+            float: left;
+            width: 300px;
+            background-color: red;
+        }
+        .right {
+            overflow: hidden;
+            background-color: black;
+        } */
+
+        /* 绝对定位写法 */
+        .father {
+            position: relative;
+            height: 100px;
+        }
+        .left {
+            position: absolute; 
+            left: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            background: pink;
+        }
+        .right{
+            margin-left: 200px;    
+            height: 200px;
+            background: skyblue;
+        }
+    </style>
+</head>
+<body>
+    <div class="father">
+        <div class="left">左</div>
+        <div class="right">右</div>
+    <div>
+</body>
+</html>
