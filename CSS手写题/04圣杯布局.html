@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 绝对定位 */
+        .father {
+            height: 100px;
+            padding: 0 300px;
+        }
+        .center, .left, .right {
+            float: left;
+            height: 100%;
+        } 
+        .left {
+            width: 300px;
+            background: tomato;
+
+            /* margin-left父元素宽的负值，移到上一栏的最左边 */
+            margin-left: -100%;
+
+            /* 相对定位，向左移动自己的width */
+            position: relative;
+            left: -300px;
+        }
+
+        .right {
+            width: 300px;
+            background: gold;
+
+            /* margin-left自己的宽的负值，移到上一栏的最右边 */
+            margin-left: -300px;
+
+            /* 相对定位，向右移动自己的width */
+            position: relative;
+            left: 300px;
+        }
+
+        .center {
+            background:  lightgreen;
+            width: 100%;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="father">
+        <div class="center">中间</div>
+        <div class="left">左</div>
+        <div class="right">右</div>
+    <div>
+</body>
+</html>
