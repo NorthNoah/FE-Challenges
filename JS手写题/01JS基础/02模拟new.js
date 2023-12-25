@@ -8,7 +8,7 @@ function myNew(fn, ...args) {
     let instance = Object.create(fn.prototype)
     // 2.更改构造函数的this指向，并执行构造函数（apply方式
     let res = fn.apply(instance, args)
-    // 3.类型校验，确保返回对象
-    return typeof instance === 'object' ? res : instance
+    // 3.类型校验，确保构造函数执行后返回对象
+    return res instanceof Object ? res : instance
 }
 

@@ -18,3 +18,25 @@ function myInstanceof(obj, func) {
         proto = Object.getPrototypeOf(proto) //proto.__proto__
     }
 }
+
+
+
+// 12.25-寒假实习准备
+function myInstanceof (obj, func) {
+    let proto = Object.getPrototypeOf(obj)
+    
+    while (true) {
+        // 终止条件：查找到了原型链的末尾
+        if (proto === null) {
+            return false
+        }
+
+        // 成功：
+        if (proto === func.prototype) {
+            return true
+        }   
+
+        // 迭代查找
+        proto = Object.getPrototypeOf(proto)
+    }
+}
