@@ -1,27 +1,50 @@
 // 深拷贝
 // Json.stringfy() lodash的_.cloneDeep
-function deepClone(target, map = new WeakMap()) {//WeakMap弱引用
-    // 1.判断非对象类型
-    if (!target || typeof target !== "object") {
-        return target
+
+// 基本版
+function deepClone1(origin) {
+    if (typeof origin !== 'object' || typeof origin === null) {
+        return origin
     }
-    // 2.判断数组还是对象
-    const newObj = Array.isArray(target) ? [] : {}
-    // 3.处理循环引用——自己引用自己
-    // 如果已经拷贝过，直接返回之前保存的newObj
-    if (map.has(target)) {
-        //返回拷贝过的新对象newObj
-        return map.get(target)
-    }
-    // 4.未拷贝过
-    //先标记拷贝过
-    map.set(target, newObj) 
-    // 递归进行拷贝
-    for (let key in target) {
-        if (target.hasOwnProperty(key)) {
-            newObj[key] = deepClone(target[key])
+    const target = Array.isArray(origin) ? [] : {}
+    for (const key in origin) {
+        if (origin.hasOwnProperty(key)) {
+            target[key] = deepClone(origin[key])
         }
     }
+}
+// 优化:对函数、正则、Date、Map、Set进行处理，调用其自己的构造器生成对象
+// 增加map防止循环引用
+function deepClone(origin, map = new WeakMap()) {//WeakMap弱引用
+    // 1.判断非对象类型或者null，直接返回原值
+    if (typeof origin !== "object" || origin === null) {
+        return origin
+    }
+    // 2.优化无法正确拷贝的对象
+    const constructor = origin.constructor
+    if (/^(Fuction | RegExp | Date | Map | Set)$/i.test(constructor.name)) {
+        return new constructor(origin)
+    }
+
+    // 3.处理循环引用——自己引用自己
+    // 如果已经拷贝过，直接返回之前保存的newObj
+    if (map.has(origin)) {
+        //返回拷贝过的新对象newObj
+        return map.get(origin)
+    }
+    // 未拷贝过
+    // 判断数组还是对象
+    const target = Array.isArray(origin) ? [] : {}
+    // 映射关系的标记
+    map.set(origin, target) 
+    
+    // 4.递归进行拷贝
+    for (const key in origin) { // 遍历origin每个key
+        if (origin.hasOwnProperty(key)) {
+            target[key] = deepClone(origin[key], map) //递归处理
+        }
+    }
+    return target
 }
 
 // 浅拷贝
@@ -41,3 +64,5 @@ function shallowClone(target) {
     }
     return newObj
 }
+
+obj = {a:1, b:2, c:{ d:1}}
