@@ -12,3 +12,23 @@ function myNew(fn, ...args) {
     return res instanceof Object ? res : instance
 }
 
+
+// 12.25
+function myNew (fn, ...args) {
+    // 创建一个新对象，并且将该对象的__proto__指向构造函数fn的prototype
+    let instance = Object.create(fn.prototype)
+    
+    // 通过call调用的方式，将构造函数的this指向对象instance,并执行构造函数
+    let res = fn.apply(instance, args)
+
+    // 类型校验：apply执行构造函数后是否仍然返回一个对象
+    return res instanceof Object ? res : instance
+    
+}
+
+function myNew (fn, ...args) {
+    let instance = Object.create(fn.prototype)
+    let res = fn.apply(instance, args)
+    return res instanceof Object ? res : instance
+}
+
