@@ -41,3 +41,15 @@ console.log(flat1(arr))
 console.log(flat2(arr))
 console.log(flat3(arr))
 console.log(flatten(arr))
+
+function flattt (arr) {
+    let res = []
+    for (let i = 0; i < arr.length; i++) {
+        if (Array.isArray(arr[i])) {
+            // 递归后拼接
+            res = res.concat(flattt(arr[i]))
+        } else {
+            res.push(arr[i])
+        }
+    }
+}

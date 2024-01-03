@@ -15,7 +15,7 @@ Person.prototype.running = function() {
 }
 
 Person.prototype.eating = function() {
-    console.log("eating~")
+    console.log( this.name + "eating~")
 }
 
 function Student(name, age, score) {
@@ -28,9 +28,9 @@ function Student(name, age, score) {
 // 将Student的prototype的隐式原型通过new绑定到Person上
 Student.prototype = new Person()
 let stu1 = new Student()
-stu1.prototype.studying = function() {
-    console.log("studying~")
-}
+// stu1.prototype.studying = function() {
+//     console.log("studying~")
+// }
 
 // 2.借用构造函数继承：无法实现函数的复用，父类的方法子类型无法访问
 function Student(name, age, score) {
@@ -52,3 +52,24 @@ function Student(name, age, score) {
 Student.prototype = Object.create(Person.prototype)
 // 将子类构造函数的原型的构造器指向它本身
 Student.prototype.constructor = Student
+
+
+function Staff(name, salary) {
+    // 调用父类的构造方法
+    Person.call(this, name);
+    this.salary = salary
+}
+Staff.prototype = Object.create(Person.prototype)
+Staff.prototype.constructor = Staff
+
+let staff = new Staff('yxb', '25k')
+Staff.prototype.happy = function() {
+    console.log(this.salary + 'jjjj')
+}
+staff.eating()
+staff.happy()
+
+let staff2 = new Staff('wyl', '99k')
+staff2.happy()
+
+

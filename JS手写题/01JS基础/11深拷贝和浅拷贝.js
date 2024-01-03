@@ -12,6 +12,7 @@ function deepClone1(origin) {
             target[key] = deepClone(origin[key])
         }
     }
+    return target
 }
 // 优化:对函数、正则、Date、Map、Set进行处理，调用其自己的构造器生成对象
 // 增加map防止循环引用
@@ -49,20 +50,54 @@ function deepClone(origin, map = new WeakMap()) {//WeakMap弱引用
 
 // 浅拷贝
 // 常见的类型：Object.assign、展开运算符、数组concat和slice
-function shallowClone(target) {
+function shallowClone(origin) {
     // 1.只拷贝对象
-    if (!target || typeof target !== "object") return
+    if (typeof origin !== "object" || typeof origin === null) return
 
     // 2.判断是数组还是对象，创建不同的容器
-    let newObj = Array.isArray(target) ? [] : {}
+    let target = Array.isArray(origin) ? [] : {}
 
-    // 3.遍历object，并且判断只有在obj上的属性才拷贝
-    for (let key in target) {
-        if (target.hasOwnProperty(key)) {
-            newObj[key] = target[key]
+    // 3.遍历源object，并且判断只有在obj上的属性才拷贝
+    for (let key in origin) {
+        if (origin.hasOwnProperty(key)) {
+            target[key] = origin[key]
         }
     }
-    return newObj
+    return target
 }
 
-obj = {a:1, b:2, c:{ d:1}}
+// 测试浅拷贝
+const obj = {a: 1, b: 2, c: { d:1 }}
+const obj2 = shallowClone(obj)
+const obj3 = deepClone1(obj)
+obj.c.d = 3
+console.log(obj)
+
+console.log(obj2)
+console.log(obj3)
+
+function deepClone (origin, map = new WeakMap()) {
+    if (typeof origin !== 'object' || typeof origin === 'null') {
+        return origin;
+    }
+    let constructor = origin.constructor
+    if (/^Function | RegExp | Date | Map | Set/i.test(constructor.name)) {
+        return new constructor(origin)
+    }
+
+    // 处理循环引用
+    if (map.has(origin)) {
+        return map.get(origin)
+    }
+
+    const target = Array.isArray(origin) ? [] : {}
+    map.set(origin, target)
+
+    for (let key in origin) {
+        if (origin.hasOwnProperty(key)) {
+            target[key] = deepClone(origin[key])
+        }
+    }
+    return target
+}
+

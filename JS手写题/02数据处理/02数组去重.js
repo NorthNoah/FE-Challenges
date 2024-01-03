@@ -33,7 +33,23 @@ const unique4 = arr => {
     return res
 }
 
-console.log(unique(arr))
-console.log(unique2(arr))
-console.log(unique3(arr))
-console.log(unique4(arr))
+// console.log(unique(arr))
+// console.log(unique2(arr))
+// console.log(unique3(arr))
+// console.log(unique4(arr))
+
+
+function uni (arr) {
+    let res = []
+    for (let val of arr) {
+        if (!res.includes(val)) {
+            res.push(val)
+        }
+    }
+    return res
+}
+function uni2 (arr) {
+    let res = []
+    arr.filter((item, index) => arr.indexOf(item) === index)
+}
+console.log(uni(arr))

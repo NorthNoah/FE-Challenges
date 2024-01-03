@@ -28,6 +28,7 @@ function currying(fn) {
         if (fn.length === args.length) {
             return fn(...args)
         } else {
+        
             return function(...newArgs) {
                 return temp(...args, ...newArgs)
             }
@@ -40,3 +41,16 @@ let d = curryAdd2(1, 2, 3)
 let e = curryAdd2(1)(2, 3)
 let f = curryAdd2(1)(2)(3)
 console.log(d, e, f)
+
+function curry(fn) {
+    return function temp(...args) {
+        if (fn.length === args.length) {
+            fn(...args)
+        } else {
+            // 返回中间函数
+            return function fn(...newArgs) {
+                return temp(...args, ...newArgs)
+            }
+        }
+    }
+}

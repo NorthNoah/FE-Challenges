@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.list-item {
+  color: black;
+}
+
+.list-item:nth-child(-n+2),
+.list-item:nth-last-child(-n+2) {
+  color: red;
+}
+</style>
+</head>
+<body>
+
+<ul id="list">
+  <li class="list-item">Item 1</li>
+  <li class="list-item">Item 2</li>
+  <li class="list-item">Item 3</li>
+  <li class="list-item">Item 4</li>
+  <li class="list-item">Item 5</li>
+  <li class="list-item">Item 6</li>
+  <!-- ... -->
+</ul>
+
+</body>
+</html>

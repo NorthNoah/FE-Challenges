@@ -54,3 +54,28 @@ function throttle (fn, delay) {
 }
 // 或者也可以在timer存在时return
 
+
+function debounce (fn, delay) {
+    let timer = null
+    return function(...args) {
+        if (timer) {
+            clearTimeout(timer)
+        } else {
+            setTimeout(() => {
+                fn.apply(this, args)
+            }, delay)
+            timer = null
+        }
+    }
+}
+ function throttle (fn, delay) {
+    let curTime = Date.now()
+    return function (...args) {
+        let nowTime =  Date.now()
+        if (nowTime - curTime >= delay) {
+            fn.apply(this, args)
+            curTime = Date.now()
+        }
+    }
+ }
+
