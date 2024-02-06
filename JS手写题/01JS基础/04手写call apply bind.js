@@ -59,4 +59,23 @@ let obj = {
 let obj2 = {
     name: "Noah"
 }
-f.myBind(obj2, 1)(2)
+// f.myBind(obj2, 1)(2)
+
+
+Object.prototype.myCall = function(obj = window, ...args) {
+	let key = Symbol("key")
+	obj[key] = this
+	let res = obj[key](...args)
+	delete obj[key]
+	return res
+}
+
+function Person(name, age) {
+	this.name = name 
+	this.age = age
+}
+function say(content) {
+	console.log(`我想说${content} + 我被${this}调用了`)
+}
+let p1 = new Person('Noah', 18)
+console.log(say.mycall(p1, '好的好的好的'))

@@ -242,3 +242,20 @@ Promise.allSettled = function (promises) {
 		}
 	})
 }
+
+
+Promise.prototype.myAll = function (promises) {
+	let res = []
+	let index = 0
+	for (let i = 0; i < promises.length; i++) {
+		Promise.resolve(promises[i]).then(res => {
+			res[i] = res 
+			index++
+			if (index === promises.length) {
+				return res
+			}
+		}).catch(err => {
+			reject(err)
+		})
+	}
+}

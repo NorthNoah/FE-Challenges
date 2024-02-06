@@ -32,3 +32,23 @@ function myNew (fn, ...args) {
     return res instanceof Object ? res : instance
 }
 
+
+
+// new
+function myNew2(fn, ...args) {
+    const instance = Object.create(fn.prototype)
+    const res = fn.call(instance, ...args)
+    return res instanceof Object ? res : instance
+}
+
+function Person(name, age) {
+    this.name = name 
+    this.age = age
+}
+
+let p1 = new Person('Noah', 18)
+// console.log(Object.getPrototypeOf(p1))
+// console.log(p1.name)
+let p2 = myNew2(Person, 'Noah', 25)
+console.log(p2)
+

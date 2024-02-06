@@ -66,15 +66,6 @@ function shallowClone(origin) {
     return target
 }
 
-// 测试浅拷贝
-const obj = {a: 1, b: 2, c: { d:1 }}
-const obj2 = shallowClone(obj)
-const obj3 = deepClone1(obj)
-obj.c.d = 3
-console.log(obj)
-
-console.log(obj2)
-console.log(obj3)
 
 function deepClone (origin, map = new WeakMap()) {
     if (typeof origin !== 'object' || typeof origin === 'null') {
@@ -101,3 +92,24 @@ function deepClone (origin, map = new WeakMap()) {
     return target
 }
 
+
+
+function deepClone4(obj) {
+    if (typeof obj !== 'object' || typeof obj === null) {
+        return obj
+    }
+    let newObj  = Array.isArray(obj) ? [] : {}
+    for (let key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            newObj[key] = deepClone(obj[key])
+        }
+    }
+    return newObj
+}
+
+const obj = {a: 1, b: 2, c: { d:1 }}
+// const obj2 = shallowClone(obj)
+const obj3 = deepClone4(obj)
+obj.c.d = 3
+console.log(obj)
+console.log(obj3)

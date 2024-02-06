@@ -37,10 +37,10 @@ const flatten = arr => {
     return res
 }
 
-console.log(flat1(arr))
-console.log(flat2(arr))
-console.log(flat3(arr))
-console.log(flatten(arr))
+// console.log(flat1(arr))
+// console.log(flat2(arr))
+// console.log(flat3(arr))
+// console.log(flatten(arr))
 
 function flattt (arr) {
     let res = []
@@ -53,3 +53,29 @@ function flattt (arr) {
         }
     }
 }
+function flattt(arr) {
+    return arr.reduce((total, cur) => {
+        if (Array.isArray(cur)) {
+            return total = total.concat(flattt(cur))
+        } else {
+            return total = total.concat(cur)
+        }
+    }, [])
+}
+
+// 队列的优化写法
+function flatt2(arr) {
+    const queue = [...arr]
+    const res = []
+    while(queue.length) {
+        const next = queue.shift()
+        if (Array.isArray(next)) {
+            queue.push(...next)
+        } else {
+            res.push(next)
+        }
+    }
+    return res
+}
+
+console.log(flatt2(arr))

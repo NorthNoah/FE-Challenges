@@ -35,4 +35,19 @@ async function sleepTest() {
 	await sleep(1000)
 	console.log("G")
 }
-sleepTest()
+// sleepTest()
+
+function sleep2(time) {
+	return new Promise(resolve => {
+		setTimeout(() => {
+			resolve()
+		}, time)
+	})
+}
+sleep2(10000).then(() => {
+	console.log('dddddd')
+})
+
+async function sleepTest() {
+	await sleep(1000)
+}

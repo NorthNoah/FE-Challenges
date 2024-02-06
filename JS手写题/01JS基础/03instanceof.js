@@ -40,3 +40,26 @@ function myInstanceof (obj, func) {
         proto = Object.getPrototypeOf(proto)
     }
 }
+
+function myInstanceof(obj, fn) {
+    let proto = Object.getPrototypeOf(obj)
+    while (true) {
+        if (proto === null) {
+            return false
+        }
+        if (proto === fn.prototype) {
+            return true
+        }
+        // 继续向上查找
+        proto = Object.getPrototypeOf(obj)
+    }
+}
+
+
+function Person(name, age) {
+    this.name = name 
+    this.age = age
+}
+
+let p1 = new Person('Noah', 18)
+console.log(myInstanceof(p1, Object))

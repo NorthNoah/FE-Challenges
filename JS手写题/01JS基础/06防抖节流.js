@@ -15,6 +15,7 @@ function debounce(fn, delay) {
     }
 }
 
+
 // 封装防抖hook，使得某个值在delay中只执行一次
 const useDebounceHook = (value, delay) => {
     // 将原先value转化为组件内部状态
@@ -78,4 +79,18 @@ function debounce (fn, delay) {
         }
     }
  }
+
+// 
+function debounce (fn, delay) {
+    let timer = null
+    return function (...args) {
+        if (timer) {
+            clearTimeout(timer)
+        }
+        setTimeout(() => {
+            fn.apply(this, args)
+            timer = null
+        }, delay)
+    }
+}
 

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .box {
+      display: flex;
+    }
+    .left {
+      height: 100px;
+      width: 100px;
+      background-color: red;
+    }
+    .mid {
+      height: 100px;
+      width: 100px;
+      background-color: green;
+
+    }
+    .right {
+      height: 100px;
+      flex: 1;
+      background-color: pink;
+    }
+    .display_none {
+      width: 0;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="box">
+    <div class="left">1</div> 
+    <div class="mid">2</div>
+    <div class="right">3</div>
+  </div>
+  
+  <script>
+    let mid = document.querySelector('.mid')
+    let left = document.querySelector('.left')
+    mid.addEventListener('click', () => {
+      console.log(left.className)
+      left.className = 'display_none'; 
+    })
+  </script>
+</body>
+</html>
